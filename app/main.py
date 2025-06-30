@@ -3,10 +3,24 @@ import random
 import uuid
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 
 from authorize.keycloak import validate_keycloak_token
 
 app = FastAPI()
+
+
+origins = ["*"]  # Consider restricting this in a production environment
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 # In-memory storage for objects
 to_save = []
 
