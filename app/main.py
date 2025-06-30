@@ -66,8 +66,8 @@ async def delete_object(
 
 @app.websocket("/ws")
 async def websocket_endpoint(
-    token_info=Depends(validate_keycloak_token),
     websocket: WebSocket,
+    token_info=Depends(validate_keycloak_token),
     mean: float = Query(..., description="Mean for the normally distributed random values"),
     std: float = Query(..., description="Standard deviation"),
     interval: int = Query(..., description="Interval in milliseconds between values")
@@ -95,5 +95,5 @@ async def websocket_endpoint(
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
-        "fastapi_app:app", host="0.0.0.0", port=8000, reload=True
+        "main:app", host="0.0.0.0", port=8000, reload=True
     )
